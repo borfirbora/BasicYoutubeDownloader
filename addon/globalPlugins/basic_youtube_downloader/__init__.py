@@ -24,4 +24,4 @@ class GlobalPlugin(GlobalPlugin):
 		"Basit Youtube İndirici"
 	), gesture="kb:NVDA+shift+y")
 	def script_checkLink(self, gesture):
-		gui.speech.speakMessage("deneme mesajıdır bu.")
+		gui.speech.speakMessage("deneme mesajıdır bu. Bakalım başarılı olacak mı?")
