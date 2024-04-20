@@ -16,14 +16,12 @@ import pytube
 initTranslation()
 
 class GlobalPlugin(GlobalPlugin):
-	@script(
-		# Description
-		# TRANSLATORS: Description of the starting script.
-		description=_("Panoya kopyalanmış Youtube Bağlantısını algılar."),
-		# Category
-		# TRANSLATORS: Category name of the script.
-		category=_("Basit Youtube İndirici"),
-		gesture="kb:NVDA+alt+y"
-	)
-	def script_startBYD(self, gesture: KeyboardInputGesture):
-		gui.speech.speakMessage(_(f"değişik bir eklenti"))
+	@script(description=_(
+		# Translators: Keystroke detail.
+		"Panodaki bağlantıyı inceler, tekil video ya da oynatma listesi olma durumlarına göre iş akışı başlatır. Eğer bağlantı uygun değilse bilgilendirir."
+	), category=_(
+		# Translators: Must be addon summary in your language.
+		"Basit Youtube İndirici"
+	), gesture="kb:NVDA+shift+y")
+	def script_checkLink(self, gesture):
+		gui.speech.speakMessage("deneme")
