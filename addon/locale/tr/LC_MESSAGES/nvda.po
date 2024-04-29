@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 'BasicYoutubeDownloader' '1.0'\n"
+"Project-Id-Version: 'BasicYoutubeDownloader' '1.0.1'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2024-04-03 23:09+0300\n"
-"PO-Revision-Date: 2024-04-03 23:09+0300\n"
+"POT-Creation-Date: 2024-04-29 23:24+0300\n"
+"PO-Revision-Date: 2024-04-29 23:35+0300\n"
 "Last-Translator: Bora FIRLANGEÇ <borafirlangec@gmail.com>\n"
 "Language-Team: \n"
 "Language: tr\n"
@@ -18,36 +18,84 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.4.2\n"
 
-#. Translators: Description of the starting script.
-#: addon\globalPlugins\basic_youtube_downloader\__init__.py:12
-msgid "Panoya kopyalanmış Youtube Bağlantısını algılar."
-msgstr "Panoya kopyalanmış Youtube Bağlantısını algılar."
+#: addon\globalPlugins\basic_youtube_downloader\__init__.py:24
+msgid "No downloading"
+msgstr "İndirme yok"
 
-#. Translators: Category name of the script.
+#. Translators: Keystroke detail.
+#: addon\globalPlugins\basic_youtube_downloader\__init__.py:31
+msgid ""
+"It analyzes the link you copied to the clipboard. It starts the appropriate "
+"workflow whether it is a video or a playlist."
+msgstr ""
+"Panoya kopyaladığınız bağlantıyı analiz eder. İster video ister oynatma "
+"listesi olsun, uygun iş akışını başlatır."
+
+#. Translators: Must be addon summary in your language.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on
 #. to be shown on installation and add-on information found in Add-ons Manager.
-#: addon\globalPlugins\basic_youtube_downloader\__init__.py:14 buildVars.py:23
-msgid "Basit Youtube İndirici"
-msgstr "Basit Youtube İndirici"
+#: addon\globalPlugins\basic_youtube_downloader\__init__.py:34 buildVars.py:23
+msgid "Basic Youtube Downloader"
+msgstr "Temel Youtube İndirici"
+
+#: addon\globalPlugins\basic_youtube_downloader\__init__.py:44
+#, python-brace-format
+msgid "Select the folder to download the {title} video"
+msgstr "{title} videosunun indirileceği dizini seçin"
+
+#: addon\globalPlugins\basic_youtube_downloader\__init__.py:46
+#, python-brace-format
+msgid "Select the folder to download the {title} playlist"
+msgstr "{title} oynatma listesinin indirileceği dizini seçin"
+
+#: addon\globalPlugins\basic_youtube_downloader\__init__.py:48
+msgid "Clipboard empty"
+msgstr "Pano boş"
+
+#: addon\globalPlugins\basic_youtube_downloader\__init__.py:56
+msgid "It is not a valid link"
+msgstr "Geçerli bir link değil"
+
+#. Translators: Asking for quality.
+#: addon\globalPlugins\basic_youtube_downloader\__init__.py:62
+msgid "Choose your video quality."
+msgstr "İndirme kalitesini belirleyin."
+
+#. Translators: The Window title.
+#: addon\globalPlugins\basic_youtube_downloader\__init__.py:64
+msgid "Choose Quality"
+msgstr "Kalite Seç"
+
+#: addon\globalPlugins\basic_youtube_downloader\__init__.py:64
+msgid "Highest Quality"
+msgstr "Yüksek Kalite"
+
+#: addon\globalPlugins\basic_youtube_downloader\__init__.py:64
+msgid "Lowest Quality"
+msgstr "Düşük Kalite"
+
+#: addon\globalPlugins\basic_youtube_downloader\__init__.py:87
+#, python-brace-format
+msgid "Download of file {file_name} has been cancelled"
+msgstr "{file_name} indirmesi iptal edildi"
+
+#: addon\globalPlugins\basic_youtube_downloader\__init__.py:91
+msgid "Cancelled"
+msgstr "İptal edildi"
+
+#: addon\globalPlugins\basic_youtube_downloader\__init__.py:95
+#, python-brace-format
+msgid "{percent} percent downloaded"
+msgstr "{percent} yüzde indirildi"
+
+#: addon\globalPlugins\basic_youtube_downloader\__init__.py:101
+#, python-brace-format
+msgid "The file was downloaded to {filepath}"
+msgstr "Dosya, {filepath} konumuna indirildi"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 #: buildVars.py:26
-msgid "Youtube videolarını, oynatma listelerini indirebilen bir eklenti."
-msgstr "Youtube videolarını, oynatma listelerini indirebilen bir eklenti."
-
-#~ msgid "Temel Youtube İndirici"
-#~ msgstr "Temel Youtube İndirici"
-
-#~ msgid "Panoyu kontrol ederek indirme işlemine başlar."
-#~ msgstr "Panoyu kontrol ederek indirme işlemine başlar."
-
-#~ msgid "Çalışıyor..."
-#~ msgstr "Çalışıyor..."
-
-#~ msgid "Deneme"
-#~ msgstr "Deneme"
-
-#~ msgid "Panodaki öğenin geçerli bir video ya da oynatma listesi bağlantısı olup olmadığını kontrol edip işlemi başlatır."
-#~ msgstr "Panodaki öğenin geçerli bir video ya da oynatma listesi bağlantısı olup olmadığını kontrol edip işlemi başlatır."
+msgid "A plugin that can download Youtube videos and playlists."
+msgstr "Youtube videolarını ve oynatma listelerini indirebilen bir eklenti."
