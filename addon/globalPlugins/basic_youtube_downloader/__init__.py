@@ -45,7 +45,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			elif isinstance(self.youtube_link, pytube.Playlist):
 				self.selectFolder(_("Select the folder to download the {title} playlist").format(title=title))
 		except OSError:
-			gui.speech.speakMessage(_("Clipboard empty"))
+			self.clearGestureBindings()
+			self.bindGestures(self._GlobalPlugin__gestures)
+			self.terminate()
 
 	def recogniseLink(self, link):
 		if link.startswith("https://www.youtube.com/watch?"):
@@ -54,6 +56,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return pytube.Playlist(link)
 		else:
 			gui.speech.speakMessage(_("It is not a valid link"))
+			self.terminate()
+			self.clearGestureBindings()
+			self.bindGestures(self._GlobalPlugin__gestures)
 
 	def askQuality(self):
 		def askGUI():
@@ -72,6 +77,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					pDownload = threading.Thread(target=self.downloadPlaylist,args=(self.p_quality, self.youtube_link, self.p_folder))
 					self.pDownload = pDownload
 					pDownload.start()
+			else:
+				self.terminate()
+				self.clearGestureBindings()
+				self.bindGestures(self._GlobalPlugin__gestures)
 			return None
 		wx.CallAfter(askGUI)
 
@@ -129,5 +138,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				self.p_folder = folder.GetPath()
 				self.askQuality()
 				return folder.GetPath()
+			else:
+				self.terminate()
+				self.clearGestureBindings()
+				self.bindGestures(self._GlobalPlugin__gestures)
 			return None
 		wx.CallAfter(folderDLG)
