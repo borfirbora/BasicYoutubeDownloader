@@ -25,7 +25,7 @@ addon_info = {
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 	"addon_description": _("A plugin that can download Youtube videos and playlists."),
 	# version
-	"addon_version": "1.3",
+	"addon_version": "1.4.1",
 	# Author(s)
 	"addon_author": "Bora FIRLANGEÇ <borafirlangec@gmail.com>",
 	# URL for the add-on documentation support
