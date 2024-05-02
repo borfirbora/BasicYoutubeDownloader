@@ -50,9 +50,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.terminate()
 
 	def recogniseLink(self, link):
-		if link.startswith("https://www.youtube.com/watch?"):
+		if "youtube.com/watch?" in link:
 			return pytube.YouTube(link)
-		elif link.startswith("https://www.youtube.com/playlist?"):
+		elif "youtube.com/playlist?" in link:
 			return pytube.Playlist(link)
 		else:
 			gui.speech.speakMessage(_("It is not a valid link"))
