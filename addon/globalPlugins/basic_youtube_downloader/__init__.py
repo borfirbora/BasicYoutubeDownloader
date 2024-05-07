@@ -56,7 +56,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		elif "youtube.com/playlist?" in link:
 			return pytube.Playlist(link)
 		elif "youtu.be/" in link:
-			return pytube.YouTube("https://youtube.com/watch?v={}".format(parse.urlparse(link).path[1::]))
+			return pytube.YouTube("https://www.youtube.com/watch?v={}".format(parse.urlparse(link).path[1::]))
 		else:
 			gui.speech.speakMessage(_("It is not a valid link"))
 			self.terminate()
@@ -116,9 +116,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		video.register_on_complete_callback(self.onComplete)
 		video.register_on_progress_callback(self.onProgress)
 		if quality == 0:
-			video.streams.get_highest_resolution().download(f_path)
+			d = video.streams.get_highest_resolution()
+			d.download(f_path)
 		elif quality == 1:
-			video.streams.get_lowest_resolution().download(f_path)
+			d = video.streams.get_lowest_resolution()
+			d.download(f_path)
 		self.clearGestureBindings()
 		self.bindGestures(self._GlobalPlugin__gestures)
 
