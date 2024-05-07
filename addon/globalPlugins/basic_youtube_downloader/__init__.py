@@ -1,3 +1,4 @@
+from urllib import parse
 import time
 import threading
 import asyncio
@@ -54,6 +55,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return pytube.YouTube(link)
 		elif "youtube.com/playlist?" in link:
 			return pytube.Playlist(link)
+		elif "youtu.be/" in link:
+			return pytube.YouTube("https://youtube.com/watch?v={}".format(parse.urlparse(link).path[1::]))
 		else:
 			gui.speech.speakMessage(_("It is not a valid link"))
 			self.terminate()
