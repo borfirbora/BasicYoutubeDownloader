@@ -1,3 +1,4 @@
+import subprocess
 from urllib import parse
 import time
 import threading
@@ -69,7 +70,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				# Translators: Asking for quality.
 			"Choose your video quality."),_(
 				# Translators: The Window title.
-			"Choose Quality"),[_("Highest Quality"),_("Lowest Quality")])
+			"Choose Quality"),[_("Highest Quality"),_("Lowest Quality"),_("MP3 Format")])
 			if dialog.ShowModal() == wx.ID_OK:
 				self.p_quality = dialog.GetSelection()
 				if isinstance(self.youtube_link, pytube.YouTube):
@@ -109,8 +110,26 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.speech.speakMessage(self.p_percent)
 
 	def onComplete(self, stream, filepath):
-		filepath = os.path.dirname(filepath)
-		gui.speech.speakMessage(_("The file was downloaded to {filepath}").format(filepath=filepath))
+		file_path = os.path.dirname(filepath)
+		gui.speech.speakMessage(_("The file was downloaded to {file_path}").format(file_path=file_path))
+		if self.p_quality == 2:
+			gui.speech.speakMessage(_("Converting to MP3..."))
+
+
+			output_path = os.path.splitext(filepath)[0]
+			output_file = output_path + ".mp3"
+
+			try:
+				result = subprocess.run(
+					["ffmpeg", "-i", filepath, "-vn", "-codec:a", "libmp3lame", "-qscale:a", "2", output_file],
+					stdout=subprocess.DEVNULL,  # Konsol çıktısını devre dışı bırakır
+					stderr=subprocess.DEVNULL,   # Hata çıktısını devre dışı bırakır
+					creationflags=subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
+				)
+				gui.speech.speakMessage(_("MP3 converted."))
+				os.remove(filepath)
+			except Exception as e:
+				gui.speech.speakMessage(_("Unexpected error: {error}").format(error=str(e)))
 
 	def downloadVideo(self, quality, video: pytube.YouTube, f_path):
 		video.register_on_complete_callback(self.onComplete)
@@ -118,7 +137,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if quality == 0:
 			d = video.streams.get_highest_resolution()
 			d.download(f_path)
-		elif quality == 1:
+		elif quality == 1 or quality == 2:
 			d = video.streams.get_lowest_resolution()
 			d.download(f_path)
 		self.clearGestureBindings()
@@ -131,7 +150,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			video.register_on_complete_callback(self.onComplete)
 			if quality == 0:
 				video.streams.get_highest_resolution().download(os.path.join(g_path, playlist.title))
-			else:
+			elif quality == 1 or quality == 2:
 				video.streams.get_lowest_resolution().download(os.path.join(g_path, playlist.title))
 		self.clearGestureBindings()
 		self.bindGestures(self._GlobalPlugin__gestures)
