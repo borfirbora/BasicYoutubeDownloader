@@ -1,3 +1,5 @@
+import traceback
+import tempfile
 import subprocess
 from urllib import parse
 import time
@@ -120,16 +122,18 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			output_file = output_path + ".mp3"
 
 			try:
-				result = subprocess.run(
-					["ffmpeg", "-i", filepath, "-vn", "-codec:a", "libmp3lame", "-qscale:a", "2", output_file],
-					stdout=subprocess.DEVNULL,  # Konsol çıktısını devre dışı bırakır
-					stderr=subprocess.DEVNULL,   # Hata çıktısını devre dışı bırakır
-					creationflags=subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
-				)
+				with tempfile.NamedTemporaryFile(delete=False) as log_file:
+					result = subprocess.run(
+						[parent_dir_name + "/basic_youtube_downloader/ffmpeg.exe", "-i", filepath, "-vn", "-codec:a", "libmp3lame", "-qscale:a", "2", output_file],
+						stdout=log_file,
+						stderr=log_file,
+						creationflags=subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
+					)
+					print(log_file.name)
 				gui.speech.speakMessage(_("MP3 converted."))
 				os.remove(filepath)
 			except Exception as e:
-				gui.speech.speakMessage(_("Unexpected error: {error}").format(error=str(e)))
+				gui.speech.speakMessage(_("Unexpected error: {error}\n{details}").format(error=str(e), details=traceback.format_exc()))
 
 	def downloadVideo(self, quality, video: pytube.YouTube, f_path):
 		video.register_on_complete_callback(self.onComplete)
